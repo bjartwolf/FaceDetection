@@ -10,8 +10,10 @@ var Stream = require('stream').Stream;
 module.exports = RGBAStream;
 util.inherits(RGBAStream, Stream);
 
-var h = 180;
-var w = 320;
+//var h = 180;
+var h = 90;
+var w = 160;
+//var w = 320;
 var nrOfPixels = w*h;
 var nrOfBytesPrImage = nrOfPixels*4; 
 
@@ -30,11 +32,11 @@ function RGBAStream() {
    this.videoEncoder.stdout.on('data', function (buffer) {
        // Just append the videodata to exising buffer
        self._buf = Buffer.concat([self._buf, buffer]);
-       if (self._buf.length > 230400) {
+       if (self._buf.length > nrOfBytesPrImage) {
            var buf = self._buf;
            var rgba = self.rgba;
            var i;
-           for (i = 0; i < 230397; i+=4) {
+           for (i = 0; i < nrOfBytesPrImage-3; i+=4) {
                 rgba[i] = buf[i]; 
                 rgba[i+1] = buf[i+1]; 
                 rgba[i+2] = buf[i+2]; 
@@ -55,7 +57,8 @@ RGBAStream.prototype._initVideoEncoder = function () {
     '-i', 'pipe:0',
     '-f', 'rawvideo',
     '-analyzeduration', '0',
-    '-s', '320x180',
+    //'-s', '320x180',
+    '-s', '160x90',
     '-pix_fmt', 'rgba',
     '-r', '29.97', 
     'pipe:1'

@@ -5,15 +5,17 @@ jsfeat.bbf.face_cascade = require('./bbf_face.js');
 module.exports = FaceStream;
 util.inherits(FaceStream, Stream);
 
-var h = 180;
-var w = 320;
+var h = 90;
+var w = 160;
+//var h = 180;
+//var w = 320;
 var nrOfPixels = w*h;
 
 function FaceStream() {
    Stream.call(this);
    this.writable = true;
    this.readable = true;
-   this.counter = 0;
+ //  this.counter = 0;
    this.gray_img = new jsfeat.matrix_t(w, h, jsfeat.U8_t | jsfeat.C1_t);
    jsfeat.bbf.prepare_cascade(jsfeat.bbf.face_cascade);
 }
@@ -27,9 +29,9 @@ FaceStream.prototype.faceDetection = function (rgbaImage) {
 }
 
 FaceStream.prototype.write = function (rgbaImage) {
-   this.counter++;
-   if (this.counter > 5) { // Have to speed up the RGBA parser to increase speed
+//   this.counter++;
+ //  if (this.counter > 5) { // Have to speed up the RGBA parser to increase speed
        this.emit('data', this.faceDetection(rgbaImage));
-       this.counter = 0;
-   }
+   //    this.counter = 0;
+  // }
 }
