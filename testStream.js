@@ -18,7 +18,7 @@ face.toObservable('data')
         return faces[0];
     })
     .where(function (face) {
-        if (face) { return face.confidence > 0; }   
+        if (face) { return face.confidence > -1; }   
     })
     .select(function (face) {
         return "Face at " + face.x + ", " + face.y + ". Width is " + face.width;

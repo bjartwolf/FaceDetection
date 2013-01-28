@@ -11,8 +11,8 @@ module.exports = RGBAStream;
 util.inherits(RGBAStream, Stream);
 
 //var h = 180;
-var h = 90;
-var w = 160;
+var h = 135;
+var w = 240;
 //var w = 320;
 var nrOfPixels = w*h;
 var nrOfBytesPrImage = nrOfPixels*4; 
@@ -58,9 +58,11 @@ RGBAStream.prototype._initVideoEncoder = function () {
     '-f', 'rawvideo',
     '-analyzeduration', '0',
     //'-s', '320x180',
-    '-s', '160x90',
+    //'-s', '160x90',
+    '-s', '240x135',
     '-pix_fmt', 'rgba',
-    '-r', '29.97', 
+    //'-r', '29.97', 
+    '-r', '5', 
     'pipe:1'
   ]);
 };

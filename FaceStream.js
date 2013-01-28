@@ -5,8 +5,10 @@ jsfeat.bbf.face_cascade = require('./bbf_face.js');
 module.exports = FaceStream;
 util.inherits(FaceStream, Stream);
 
-var h = 90;
-var w = 160;
+var h = 135;
+var w = 240;
+//var h = 90;
+//var w = 160;
 //var h = 180;
 //var w = 320;
 var nrOfPixels = w*h;
@@ -29,9 +31,5 @@ FaceStream.prototype.faceDetection = function (rgbaImage) {
 }
 
 FaceStream.prototype.write = function (rgbaImage) {
-//   this.counter++;
- //  if (this.counter > 5) { // Have to speed up the RGBA parser to increase speed
-       this.emit('data', this.faceDetection(rgbaImage));
-   //    this.counter = 0;
-  // }
+    this.emit('data', this.faceDetection(rgbaImage));
 }
