@@ -1,0 +1,16 @@
+{
+  "name": "FaceStream",
+  "version": "0.0.1",
+  "description": "Streaming faces from RGBA stream",
+  "repository": "",
+  "author": "Bjartwolf",
+  "license": "BSD",
+  "dependencies": {
+    "jsfeat": "0.0.4",
+    "rx": "~2.0.2",
+    "ar-drone": "0.0.5"
+  },
+  "engines": {
+    "node": "0.8.x"
+  }
+}
