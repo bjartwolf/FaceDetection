@@ -1,5 +1,7 @@
 var net = require('net');
 var rx = require('rx');
+//var ardrone = require('ar-drone');
+//var client = ardrone.createClient();
 require('./extendObservable.js'); // Adds the toObservable method to EventEmitter
 
 var RGBAStream = require('./RGBAStream');
@@ -9,9 +11,10 @@ var FaceStream = require('./FaceStream');
 var parser = new PaVEParser();
 var face = new FaceStream();
 var RGBA = new RGBAStream();
-
 var socket = net.connect({ host: '192.168.1.1', port: 5555});
 socket.pipe(parser).pipe(RGBA).pipe(face);
+
+//client.takeoff();
 
 face.toObservable('data')
     .select(function(faces) {
@@ -25,4 +28,6 @@ face.toObservable('data')
     })
     .subscribe(function (x) {
         console.log(x);
+//        client.land();
     })
+
