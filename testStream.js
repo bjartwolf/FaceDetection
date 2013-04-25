@@ -8,13 +8,15 @@ var RGBAStream = require('./RGBAStream');
 var PaVEParser = require('./node_modules/ar-drone/lib/video/PaVEParser');
 var FrameStream = require('./FrameStream');
 var FaceStream = require('./FaceStream');
+var SelectStream = require('./SelectStream');
 
 var parser = new PaVEParser();
+var payload = new SelectStream('payload');
 var face = new FaceStream();
 var frame = new FrameStream();
 var RGBA = new RGBAStream();
 var socket = net.connect({ host: '192.168.1.1', port: 5555});
-socket.pipe(parser).pipe(RGBA).pipe(frame).pipe(face);
+socket.pipe(parser).pipe(payload).pipe(RGBA).pipe(frame).pipe(face);
 
 //client.takeoff();
 
