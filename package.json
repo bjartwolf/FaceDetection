@@ -6,11 +6,11 @@
   "author": "Bjartwolf",
   "license": "BSD",
   "dependencies": {
-    "jsfeat": "0.0.4",
-    "rx": "~2.0.2",
-    "ar-drone": "0.0.5"
+    "jsfeat": "0.0.x",
+    "rx": "2.x",
+    "ar-drone": "0.0.x"
   },
   "engines": {
-    "node": "0.8.x"
+    "node": "0.10.x"
   }
 }

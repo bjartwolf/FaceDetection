@@ -1,26 +1,20 @@
 var jsfeat = require('jsfeat');
-var Stream  = require('stream');
-var util   = require('util');
-jsfeat.bbf.face_cascade = require('./bbf_face.js');
-module.exports = FaceStream;
-util.inherits(FaceStream, Stream);
+var stream  = require('stream');
+var jsfeat.bbf.face_cascade = require('./bbf_face.js');
 
 var h = 135;
 var w = 240;
-//var h = 90;
-//var w = 160;
-//var h = 180;
-//var w = 320;
-var nrOfPixels = w*h;
+
+FaceStream.prototype = Object.create(stream.Transform.prototype, {
+  constructor: { value: FaceStream}
+});
 
 function FaceStream() {
-   Stream.call(this);
-   this.writable = true;
-   this.readable = true;
- //  this.counter = 0;
+   stream.Transform.call(this, {objectMode: true}); 
    this.gray_img = new jsfeat.matrix_t(w, h, jsfeat.U8_t | jsfeat.C1_t);
    jsfeat.bbf.prepare_cascade(jsfeat.bbf.face_cascade);
 }
+
 
 FaceStream.prototype.faceDetection = function (rgbaImage) {
     var gray_img = this.gray_img;
@@ -30,6 +24,9 @@ FaceStream.prototype.faceDetection = function (rgbaImage) {
     return jsfeat.bbf.group_rectangles(rects, 1);
 }
 
-FaceStream.prototype.write = function (rgbaImage) {
-    this.emit('data', this.faceDetection(rgbaImage));
-}
+FaceStream.prototype._transform = function(rgbaImage, encoding, done) { 
+     this.push(this.faceDetection(rgbaImage));
+     done();
+};
+
+module.exports = FaceStream;
