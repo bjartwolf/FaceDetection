@@ -10,11 +10,24 @@ var FaceStream = require('./FaceStream');
 var face = new FaceStream();
 var frame = new FrameStream();
 var RGBA = RGBAStream;
-var fileStream = fs.createReadStream('./bc.mp4');
-//var test  = fileStream.pipe(RGBA.stdin);
-var test  = fileStream.pipe(RGBA.stdin);
+var fileStream = fs.createReadStream('./bc.mp4').pipe(RGBA.stdin);;
 RGBA.stdout.pipe(frame).pipe(face);
-//RGBA.stdout.pipe(process.stdout);
+
+// Choose this for httpstream from server
+/*
+var http = require('http');
+var options = {
+  hostname: 'www.tools4movies.com',
+  port: 80,
+  path: '/trailers/1012/Broken%20City.mp4',
+  method: 'GET'
+};
+var req = http.request(options, function(res) {
+  console.log('STATUS: ' + res.statusCode);
+  res.pipe(RGBA.stdin);
+});
+req.end();
+*/
 
 face.toObservable('data')
     .select(function(faces) {
