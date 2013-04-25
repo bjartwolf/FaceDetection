@@ -1,6 +1,6 @@
 var jsfeat = require('jsfeat');
 var stream  = require('stream');
-var jsfeat.bbf.face_cascade = require('./bbf_face.js');
+jsfeat.bbf.face_cascade = require('./bbf_face.js');
 
 var h = 135;
 var w = 240;

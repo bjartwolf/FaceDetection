@@ -11,7 +11,7 @@ var h = 135;
 var w = 240;
 var res = w+'x'+h; 
 
-module.exports = spawn('ffmpeg', [
+var ffmpegStream = spawn('ffmpeg', [
     '-i', 'pipe:0',
     '-f', 'rawvideo',
     '-analyzeduration', '0',
@@ -20,4 +20,4 @@ module.exports = spawn('ffmpeg', [
     '-r', '5', //framerate
     'pipe:1'
 ]);
-
+module.exports = ffmpegStream;
